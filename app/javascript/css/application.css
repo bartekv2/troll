@@ -1,0 +1,79 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+body {
+  @apply bg-gray-800 text-gray-200 p-4;
+}
+
+h2 {
+  @apply text-2xl font-bold mb-4;
+}
+
+h3 {
+  @apply text-2xl tracking-wide font-bold;
+}
+
+.btn {
+  @apply shadow bg-teal-600 text-gray-200 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
+}
+
+.btn:hover {
+  @apply bg-teal-500;
+}
+
+.btn:focus {
+  @apply shadow-outline outline-none;
+}
+
+.btn:active {
+  @apply bg-teal-700;
+}
+
+.del {
+  @apply bg-red-400;
+}
+
+.del:hover {
+  @apply bg-red-300;
+}
+
+.del:active {
+  @apply bg-red-500;
+}
+
+input, textarea {
+  @apply text-gray-800;
+}
+
+.input input.string, .input input.password, .input textarea {
+  @apply bg-gray-300 border border-gray-600 w-full py-2 px-4 rounded;
+}
+
+.input input.string:focus, .input input.password:focus, .input textarea:focus {
+  @apply outline-none bg-gray-200;
+}
+
+.notice {
+  @apply bg-green-400 text-gray-700 rounded py-2 px-4 mb-4;
+}
+
+.alert {
+  @apply bg-red-400 text-gray-700 rounded py-2 px-4 mb-4;
+}
+
+input:checked + svg {
+  	display: block;
+  }
+
+.error_notification {
+  @apply mb-4;
+}
+
+.hint, .error {
+  @apply block text-xs mt-1;
+}
+
+.error {
+  @apply text-red-500;
+}
