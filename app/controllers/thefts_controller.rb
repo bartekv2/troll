@@ -16,20 +16,21 @@ class TheftsController < ApplicationController
   def index
     @cake_id = 1
     @cake_cal = 100
+    @time_left = 10
     @theft = Theft.new
     @thefts = Theft.all.order(created_at: :desc)
     @last_50_thefts = Theft.all.order(created_at: :desc).limit(50)
     @top_50_fattest = Theft.group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(50)
     @users = User.all
+    @time_now = Time.now.to_i
+    @exact_time = Time.now.to_f
     unless @thefts.empty?
       @last_thief = @thefts.first.user.username
       @cake_id = Theft.last.next_cake_id
       @cake_cal = Theft.last.next_cake_cal
       @exact_time_of_previous = Theft.last.exact_time
+      @time_left = (Theft.last.time_of_next - @time_now) / 60
     end
-    @time_now = Time.now.to_i
-    @exact_time = Time.now.to_f
-    @time_left = (Theft.last.time_of_next - @time_now) / 60
     @time_of_next = (rand(15...45) * 60) + @time_now
     @cake_name = Cake.find(@cake_id).name
     @next_cake_id = get_random()
