@@ -1,0 +1,15 @@
+<% if user_signed_in? %>
+  <%= simple_form_for @theft do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :cake_id, value: @cake_id || 0 %>
+    <%= f.hidden_field :cake_cal, value: @cake_cal || 100 %>
+    <%= f.hidden_field :time_of_next, value: @time_of_next %>
+    <%= f.hidden_field :next_cake_id, value: @next_cake_id || 0 %>
+    <%= f.hidden_field :next_cake_cal, value: @next_cake_cal || 100 %>
+    <%= f.hidden_field :exact_time_of_previous, value: @exact_time_of_previous %>
+    <%= f.hidden_field :exact_time, value: @exact_time %>
+    <%= submit_tag "Steal!", class: "steal" %>
+  <% end %>
+<% else %>
+  <p>Please <%= link_to "log in", new_user_session_path %>  to play! :)</p>
+<% end %>

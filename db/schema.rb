@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_23_140009) do
+ActiveRecord::Schema.define(version: 2020_03_25_180854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "cakes", force: :cascade do |t|
+    t.string "name"
+    t.integer "cal_min"
+    t.integer "cal_max"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "thefts", force: :cascade do |t|
+    t.integer "cake_id"
+    t.integer "cake_cal"
+    t.integer "user_id"
+    t.integer "time_of_next"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.integer "next_cake_id"
+    t.integer "next_cake_cal"
+    t.float "exact_time"
+    t.float "exact_time_of_previous"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false

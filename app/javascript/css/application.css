@@ -3,7 +3,16 @@
 @import "tailwindcss/utilities";
 
 body {
+  font-family: 'Andika', sans-serif;
   @apply bg-gray-800 text-gray-200 p-4;
+}
+
+h1 a, h1 a.active {
+  @apply text-gray-200;
+}
+
+h1 a:hover, h1 a:focus {
+  @apply text-gray-100;
 }
 
 h2 {
@@ -14,12 +23,40 @@ h3 {
   @apply text-2xl tracking-wide font-bold;
 }
 
+a {
+  @apply text-indigo-300 tracking-wide;
+}
+
+a:hover, a:focus {
+  @apply text-indigo-200;
+}
+
+a.active, a:active {
+  @apply text-indigo-400;
+}
+
+.steal {
+  @apply bg-green-600 text-gray-100 btn rounded-full w-20 h-20 cursor-pointer tracking-wider font-bold;
+}
+
+.steal:hover {
+  @apply bg-green-500;
+}
+
+.steal:focus {
+  @apply shadow-outline outline-none;
+}
+
+.steal:active {
+  @apply bg-green-700;
+}
+
 .btn {
-  @apply shadow bg-teal-600 text-gray-200 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
+  @apply shadow bg-indigo-600 text-gray-200 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
 }
 
 .btn:hover {
-  @apply bg-teal-500;
+  @apply bg-indigo-500;
 }
 
 .btn:focus {
@@ -27,7 +64,7 @@ h3 {
 }
 
 .btn:active {
-  @apply bg-teal-700;
+  @apply bg-indigo-700;
 }
 
 .del {
@@ -62,6 +99,14 @@ input, textarea {
   @apply bg-red-400 text-gray-700 rounded py-2 px-4 mb-4;
 }
 
+.good_news {
+  @apply bg-green-400 text-gray-700 rounded py-2 px-4 mb-4;
+}
+
+.bad_news {
+  @apply bg-red-400 text-gray-700 rounded py-2 px-4 mb-4;
+}
+
 input:checked + svg {
   	display: block;
   }
@@ -76,4 +121,16 @@ input:checked + svg {
 
 .error {
   @apply text-red-500;
+}
+
+table {
+  @apply table-auto;
+}
+
+th {
+  @apply px-4 py-2;
+}
+
+td {
+  @apply border px-4 py-2;
 }

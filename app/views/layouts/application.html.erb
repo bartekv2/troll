@@ -6,26 +6,33 @@
     <%= csp_meta_tag %>
     <%= stylesheet_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <link href="https://fonts.googleapis.com/css?family=Andika&display=swap" rel="stylesheet">
   </head>
 
   <body>
     <div class="container mx-auto relative">
-      <h1 class="text-3xl font-bold text-center mb-12"><%= active_link_to 'Troll The Troll', root_path %></h1>
+      <div class="md:absolute md:top-0 md:left-0 mt-4 mb-4 md:mb-0 text-gray-600">
+        v0.1
+      </div>
+      <h1 class="text-5xl font-bold text-center mb-6"><%= active_link_to 'Troll The Troll', root_path %></h1>
       <div class="md:absolute md:top-0 md:right-0 mt-4 mb-4 md:mb-0">
         <% if user_signed_in? %>
           <%= current_user.username %>
           <%= active_link_to 'Sign out', destroy_user_session_path, method: :delete, class: "ml-1" %>
         <% else %>
           <%= active_link_to 'Log in', new_user_session_path, class: "mr-2" %>
-          <%= active_link_to "Register", new_user_registration_path %>
+          <%= active_link_to "Create Account", new_user_registration_path %>
         <% end %>
       </div>
-      <% if !flash.empty? %>
-        <% flash.each do |key, value| %>
-          <%= content_tag :div, value, class: "flash #{key} w-auto inline-block" %>
+      <div class="text-center">
+        <% if flash.key?("alert") || flash.key?("notice") %>
+          <% flash.each do |key, value| %>
+            <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mb-4" %>
+          <% end %>
         <% end %>
-      <% end %>
+      </div>
       <%= yield %>
+      <footer class="text-center my-8"><%= get_footer %></footer>
     </div>
   </body>
 </html>

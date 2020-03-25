@@ -1,0 +1,82 @@
+<div class="flex justify-center items-end mb-16">
+  <% if is_cookie? %>
+    <%= image_tag "troll01.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
+    <div class="relative">
+      <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:156px; margin-bottom: 140px; margin-left: 42px;', class: "absolute bottom-0" %>
+      <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+    </div>
+    <div class="max-w-xs ml-16 self-center text-center">
+      <p>Troll baked a <%= @cake_name %> (<%= @cake_cal %> kcal).</p>
+      <p class="mb-10">He's about to eat it.</p>
+      <% if user_signed_in? %>
+        <p><%= render partial: "form" %></p>
+      <% else %>
+        <p><%= active_link_to 'Log in', new_user_session_path %> or <%= active_link_to "Create Account", new_user_registration_path %> to steal it!</p>
+      <% end %>
+    </div>
+  <% else %>
+    <%= image_tag "troll02.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
+    <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+    <div class="max-w-xs ml-16 self-center text-center">
+      <p><strong>There is no cookie.</strong></p>
+      <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+      <p>Troll is angry and sad.</p>
+      <p>He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
+      <p>Next cookie will be ready in <%= @time_left %> minutes.</p>
+      <% if flash.key?("good_news") || flash.key?("bad_news") %>
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6" %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+<div class="flex justify-center">
+<table class="table-auto mr-16">
+  <caption><strong>Last 50 gluttons</strong></caption>
+  <thead>
+    <th>Glutton</th>
+    <th>Cake</th>
+    <th>Kcal</th>
+    <th>When</th>
+  </thead>
+  <tbody>
+    <% @last_50_thefts.each do |theft| %>
+      <tr>
+        <td>
+          <% if theft.user %>
+            <%= theft.user.username %>
+          <% end %>
+        </td>
+        <% if theft.cake_id && theft.cake_id > 0 && theft.cake_id <= 6 %>
+          <td><%= get_cake_name(theft.cake_id) %></td>
+        <% end %>
+        <td><%= theft.cake_cal %></td>
+        <td><%= distance_of_time_in_words(Time.now, theft.created_at) + " ago" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<table>
+  <caption><strong>Top 50 The Fattest</strong></caption>
+  <thead>
+    <th>Glutton</th>
+    <th>Kcal</th>
+  </thead>
+  <tbody>
+    <% @top_50_fattest.each do |key, value| %>
+      <tr>
+        <td>
+          <% if User.exists?(key) %>
+            <%= User.find(key).username %>
+          <% end %>
+        </td>
+          <td><%= value %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+</div>
