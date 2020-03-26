@@ -16,7 +16,7 @@ class TheftsController < ApplicationController
   def index
     @cake_id = 1
     @cake_cal = 100
-    @time_left = 10
+    @time_left = 0
     @theft = Theft.new
     @thefts = Theft.all.order(created_at: :desc)
     @last_50_thefts = Theft.all.order(created_at: :desc).limit(50)

@@ -22,7 +22,7 @@
       <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
       <p>Troll is angry and sad.</p>
       <p>He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
-      <p>Next cookie will be ready in <%= @time_left %> minutes.</p>
+      <p>Next cookie will be ready in <%= pluralize(@time_left, 'minute') %>.</p>
       <% if flash.key?("good_news") || flash.key?("bad_news") %>
         <% flash.each do |key, value| %>
           <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6" %>
