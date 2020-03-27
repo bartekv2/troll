@@ -8,11 +8,11 @@
 
 
 Cake.find(1).update_attributes(name: 'simple cake', cal_min: 50, cal_max: 100)
-Cake.find(2)create(name: 'Chocolate Cupcake', cal_min: 100, cal_max: 170)
-Cake.find(3)create(name: 'Pink cake with cream', cal_min: 120, cal_max: 190)
-Cake.find(4)create(name: 'Raspberry Delight', cal_min: 140, cal_max: 220)
-Cake.find(5)create(name: 'Pistachio Cupcake', cal_min: 160, cal_max: 240)
-Cake.find(6)create(name: 'Rose of Love', cal_min: 180, cal_max: 260)
+Cake.find(2).update_attributes(name: 'Chocolate Cupcake', cal_min: 100, cal_max: 170)
+Cake.find(3).update_attributes(name: 'Pink cake with cream', cal_min: 120, cal_max: 190)
+Cake.find(4).update_attributes(name: 'Raspberry Delight', cal_min: 140, cal_max: 220)
+Cake.find(5).update_attributes(name: 'Pistachio Cupcake', cal_min: 160, cal_max: 240)
+Cake.find(6).update_attributes(name: 'Rose of Love', cal_min: 180, cal_max: 260)
 Cake.create(name: 'Purple Rose of Cairo', cal_min: 200, cal_max: 280)
 Cake.create(name: 'Fantastic Oreo', cal_min: 220, cal_max: 300)
 Cake.create(name: 'Muffin', cal_min: 240, cal_max: 320)
