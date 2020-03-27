@@ -2,27 +2,35 @@
   <% if is_cookie? %>
     <%= image_tag "troll01.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
     <div class="relative">
-      <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:156px; margin-bottom: 140px; margin-left: 42px;', class: "absolute bottom-0" %>
-      <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+      <% if user_signed_in? %>
+        <%= render partial: "form" %>
+      <% else %>
+        <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto; margin-bottom: 140px; margin-left: 42px;', class: "absolute bottom-0" %>
+      <% end %>
+        <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
     </div>
     <div class="max-w-xs ml-16 self-center text-center">
-      <p>Troll baked a <%= @cake_name %> (<%= @cake_cal %> kcal).</p>
-      <p class="mb-10">He's about to eat it.</p>
-      <% if user_signed_in? %>
-        <p><%= render partial: "form" %></p>
-      <% else %>
-        <p><%= active_link_to 'Log in', new_user_session_path %> or <%= active_link_to "Create Account", new_user_registration_path %> to steal it!</p>
+      <p class="mb-2">Troll baked a <%= @cake_name %> (<%= @cake_cal %> kcal).</p>
+      <p class="mb-2">He's about to eat it.</p>
+      <p class="mb-2">He's happy.</p>
+      <p class="mb-2">If you click the cake, it will be stolen.</p>
+      <p>Troll will stay hungry.</p>
+      <% if !user_signed_in? %>
+        <%= log_in_to_play %>
       <% end %>
     </div>
   <% else %>
     <%= image_tag "troll02.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
     <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
     <div class="max-w-xs ml-16 self-center text-center">
-      <p><strong>There is no cookie.</strong></p>
-      <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
-      <p>Troll is angry and sad.</p>
-      <p>He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
+      <p class="mb-2"><strong>There is no cookie.</strong></p>
+      <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+      <p class="mb-2">Troll is hungry and sad.</p>
+      <p class="mb-2">He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
       <p>Next cookie will be ready in <%= pluralize(@time_left, 'minute') %>.</p>
+      <% if !user_signed_in? %>
+        <p class="mt-2"><%= active_link_to 'Log in', new_user_session_path %> or <%= active_link_to "Create Account", new_user_registration_path %> to play!</p>
+      <% end %>
       <% if flash.key?("good_news") || flash.key?("bad_news") %>
         <% flash.each do |key, value| %>
           <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6" %>
@@ -48,7 +56,7 @@
             <%= theft.user.username %>
           <% end %>
         </td>
-        <% if theft.cake_id && theft.cake_id > 0 && theft.cake_id <= 6 %>
+        <% if theft.cake_id && theft.cake_id > 0 && theft.cake_id <= 24 %>
           <td><%= get_cake_name(theft.cake_id) %></td>
         <% end %>
         <td><%= theft.cake_cal %></td>
