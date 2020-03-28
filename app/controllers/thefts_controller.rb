@@ -34,7 +34,7 @@ class TheftsController < ApplicationController
     @time_of_next = (rand(10...40) * 60) + @time_now
     @cake_name = Cake.find(@cake_id).name
     @next_cake_id = get_random()
-    @next_cake_cal = rand(Cake.find(@next_cake_id).cal_min...Cake.find(@next_cake_id).cal_max)
+    @next_cake_cal = rand(Cake.find(@next_cake_id).cal_min...Cake.find(@next_cake_id).cal_max) || Cake.find(@next_cake_id).cal_min
   end
 
   private
