@@ -21,10 +21,14 @@
     </div>
   <% else %>
     <%= image_tag "troll02.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
-    <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+    <div class="relative">
+      <div style="margin-bottom: 200px; margin-left: 20px;" class="absolute bottom-0 text-center">
+        <p class="mb-2"><strong>There is no cookie.</strong></p>
+        <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+      </div>
+      <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+    </div>
     <div class="max-w-xs ml-16 self-center text-center">
-      <p class="mb-2"><strong>There is no cookie.</strong></p>
-      <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
       <p class="mb-2">Troll is hungry and sad.</p>
       <p class="mb-2">He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
       <p>Next cookie will be ready in <%= pluralize(@time_left, 'minute') %>.</p>
