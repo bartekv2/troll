@@ -4,15 +4,16 @@
 
 body {
   font-family: 'Signika Negative', sans-serif;
-  @apply bg-gray-800 text-gray-200 p-4;
+  background-image: url('/assets/bg.png');
+  @apply text-color3 p-4 bg-repeat;
 }
 
 h1 a, h1 a.active {
-  @apply text-gray-200;
+  @apply text-color3;
 }
 
 h1 a:hover, h1 a:focus {
-  @apply text-gray-100;
+  @apply text-color3;
 }
 
 h2 {
@@ -24,15 +25,15 @@ h3 {
 }
 
 a {
-  @apply text-indigo-300 tracking-wide;
+  @apply text-color2 tracking-wide;
 }
 
 a:hover, a:focus {
-  @apply text-indigo-200;
+  @apply text-color1;
 }
 
 a.active, a:active {
-  @apply text-indigo-400;
+  @apply text-color2;
 }
 
 .steal {
@@ -52,11 +53,11 @@ a.active, a:active {
 }
 
 .btn {
-  @apply shadow bg-indigo-600 text-gray-200 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
+  @apply shadow bg-color2 text-color4 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
 }
 
 .btn:hover {
-  @apply bg-indigo-500;
+  @apply bg-color1;
 }
 
 .btn:focus {
@@ -64,7 +65,7 @@ a.active, a:active {
 }
 
 .btn:active {
-  @apply bg-indigo-700;
+  @apply bg-color2;
 }
 
 .del {
@@ -80,7 +81,7 @@ a.active, a:active {
 }
 
 input, textarea {
-  @apply text-gray-800;
+  @apply text-color3;
 }
 
 .input input.string, .input input.password, .input textarea {
@@ -124,7 +125,7 @@ input:checked + svg {
 }
 
 table {
-  @apply table-auto;
+  @apply table-auto bg-color7 border-2 border-white;
 }
 
 th {

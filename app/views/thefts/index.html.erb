@@ -1,49 +1,62 @@
-<div class="flex justify-center items-end mb-16">
+<div class="text-center">
   <% if is_cookie? %>
-    <%= image_tag "troll01.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
-    <div class="relative">
-      <% if user_signed_in? %>
-        <%= render partial: "form" %>
-      <% else %>
-        <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto; margin-bottom: 140px; margin-left: 42px;', class: "absolute bottom-0" %>
+    <div class="flex flex-wrap justify-center items-end mb-8 relative">
+      <%= get_troll %>
+      <%= get_table %>
+      <div class="absolute bottom-0" style="margin-bottom: 140px; margin-left: 350px;">
+        <% if user_signed_in? %>
+          <%= render partial: "form" %>
+        <% else %>
+          <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto;'%>
+        <% end %>
+      </div>
+      <% if flash.key?("good_news") || flash.key?("bad_news") %>
+        <% flash.each do |key, value| %>
+          <%= content_tag :div, value, class: "flash #{key} absolute right-0 top-0 mr-8 mt-48 w-auto inline-block mt-6 text-center" %>
+        <% end %>
       <% end %>
-        <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
     </div>
-    <div class="max-w-xs ml-16 self-center text-center">
+
+    <div class="mx-auto max-w-sm bg-color7 p-4 border-2 border-white">
       <p class="mb-2">Troll baked a <%= @cake_name %> (<%= @cake_cal %> kcal).</p>
       <p class="mb-2">He's about to eat it.</p>
       <p class="mb-2">He's happy.</p>
-      <p class="mb-2">If you click the cake, it will be stolen.</p>
-      <p>Troll will stay hungry.</p>
+      <p class="mb-2">Solve the puzzle and steal his food.</p>
       <% if !user_signed_in? %>
         <%= log_in_to_play %>
       <% end %>
     </div>
   <% else %>
-    <%= image_tag "troll02.gif", style: 'height:377px; width:143px;', class: "mr-16" %>
-    <div class="relative">
-      <div style="width: 300px; margin-bottom: 200px; margin-left: -32px;" class="absolute bottom-0 text-center">
-        <p class="mb-2"><strong>There is no cookie.</strong></p>
-        <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+    <div class="flex flex-wrap justify-center items-end mb-8 relative">
+      <%= get_troll %>
+      <%= get_table %>
+      <div class="absolute bottom-0 text-center" style="margin-bottom: 210px; margin-left: 350px;">
+        <% if flash.key?("good_news") || flash.key?("bad_news") %>
+          <% flash.each do |key, value| %>
+            <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6 text-center" %>
+          <% end %>
+        <% end %>
+        <div class="bg-color7 p-4 border-2 border-white">
+          <p class="mb-2"><strong>There is no cookie.</strong></p>
+          <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+          <p>Next one will be ready in:</p>
+          <timer :time_left="<%= @time_left.to_json %>"></timer>
+        </div>
       </div>
-      <%= image_tag "table.gif", style: 'height:193px; width:246px;' %>
+
     </div>
-    <div class="max-w-xs ml-16 self-center text-center">
+
+    <div class="mx-auto max-w-sm bg-color7 p-4 border-2 border-white">
       <p class="mb-2">Troll is hungry and sad.</p>
       <p class="mb-2">He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
-      <p>Next cookie will be ready in <%= pluralize(@time_left, 'minute') %>.</p>
       <% if !user_signed_in? %>
         <p class="mt-2"><%= active_link_to 'Log in', new_user_session_path %> or <%= active_link_to "Create Account", new_user_registration_path %> to play!</p>
       <% end %>
-      <% if flash.key?("good_news") || flash.key?("bad_news") %>
-        <% flash.each do |key, value| %>
-          <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6" %>
-        <% end %>
-      <% end %>
     </div>
+
   <% end %>
 </div>
-<div class="flex justify-center">
+<div class="flex justify-center mt-8">
 <table class="table-auto mr-16">
   <caption><strong>Last 50 gluttons</strong></caption>
   <thead>

@@ -16,3 +16,17 @@ require("channels")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import "../css/application.css"
+
+import TurbolinksAdapter from 'vue-turbolinks'
+import Vue from 'vue/dist/vue.esm'
+import Timer from '../timer.vue'
+
+Vue.use(TurbolinksAdapter)
+
+Vue.component('timer', Timer)
+
+document.addEventListener('turbolinks:load', () => {
+  const app = new Vue({
+    el: '[data-behavior="vue"]',
+  })
+})

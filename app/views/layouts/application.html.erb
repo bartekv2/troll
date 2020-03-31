@@ -10,18 +10,19 @@
   </head>
 
   <body>
-    <div class="container mx-auto relative">
-      <div class="md:absolute md:top-0 md:left-0 mt-4 mb-4 md:mb-0 text-gray-600">
-        v0.2
+    <div class="container mx-auto relative" data-behavior="vue">
+      <div class="md:absolute md:top-0 md:left-0 mt-4 mb-4 md:mb-0 text-gray-100">
+        v0.3
       </div>
       <h1 class="text-5xl font-bold text-center mb-6"><%= active_link_to 'Troll The Troll', root_path %></h1>
-      <div class="md:absolute md:top-0 md:right-0 mt-4 mb-4 md:mb-0">
+      <div class="md:absolute md:top-0 md:right-0 mt-4 mb-4 md:mb-0 bg-color7 p-2 border-2 border-white">
         <% if user_signed_in? %>
           <%= current_user.username %>
           <%= active_link_to 'Sign out', destroy_user_session_path, method: :delete, class: "ml-1" %>
         <% else %>
           <%= active_link_to 'Log in', new_user_session_path, class: "mr-2" %>
           <%= active_link_to "Create Account", new_user_registration_path %>
+          <%= javascript_pack_tag 'vue_app' %>
         <% end %>
       </div>
       <div class="text-center">
