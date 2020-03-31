@@ -1,20 +1,25 @@
 <div class="text-center">
   <% if is_cookie? %>
-    <div class="flex flex-wrap justify-center items-end mb-8 relative">
+    <div class="flex flex-wrap justify-center items-end mb-8">
       <%= get_troll %>
-      <%= get_table %>
-      <div class="absolute bottom-0" style="margin-bottom: 140px; margin-left: 350px;">
-        <% if user_signed_in? %>
-          <%= render partial: "form" %>
-        <% else %>
-          <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto;'%>
-        <% end %>
+      <div class="relative mt-64 pt-12 lg:mt-0 lg:pt-0">
+        <div>
+          <%= get_table %>
+        </div>
+        <div class="absolute bottom-0" style="margin-bottom: 140px; margin-left: 50px;">
+          <% if user_signed_in? %>
+            <% if flash.key?("good_news") || flash.key?("bad_news") %>
+              <% flash.each do |key, value| %>
+                <%= content_tag :div, value, class: "flash #{key} absolute right-0 top-0 mr-4 -mt-8 inline-block text-center" %>
+              <% end %>
+            <% end %>
+            <%= render partial: "form" %>
+          <% else %>
+            <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto;'%>
+          <% end %>
+        </div>
+
       </div>
-      <% if flash.key?("good_news") || flash.key?("bad_news") %>
-        <% flash.each do |key, value| %>
-          <%= content_tag :div, value, class: "flash #{key} absolute right-0 top-0 mr-8 mt-48 w-auto inline-block mt-6 text-center" %>
-        <% end %>
-      <% end %>
     </div>
 
     <div class="mx-auto max-w-sm bg-color7 p-4 border-2 border-white">
@@ -27,10 +32,13 @@
       <% end %>
     </div>
   <% else %>
-    <div class="flex flex-wrap justify-center items-end mb-8 relative">
+    <div class="flex flex-wrap justify-center items-end mb-8">
       <%= get_troll %>
-      <%= get_table %>
-      <div class="absolute bottom-0 text-center" style="margin-bottom: 210px; margin-left: 350px;">
+      <div class="relative mt-64 pt-0 lg:mt-0 lg:pt-0">
+      <div>
+        <%= get_table %>
+      </div>
+      <div class="absolute bottom-0 text-center" style="margin-bottom: 220px; margin-left: 10px;">
         <% if flash.key?("good_news") || flash.key?("bad_news") %>
           <% flash.each do |key, value| %>
             <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6 text-center" %>
@@ -42,6 +50,7 @@
           <p>Next one will be ready in:</p>
           <timer :time_left="<%= @time_left.to_json %>"></timer>
         </div>
+      </div>
       </div>
 
     </div>
@@ -56,7 +65,7 @@
 
   <% end %>
 </div>
-<div class="flex justify-center mt-8">
+<div class="flex flex-wrap justify-center mt-8">
 <table class="table-auto mr-16">
   <caption><strong>Last 50 gluttons</strong></caption>
   <thead>

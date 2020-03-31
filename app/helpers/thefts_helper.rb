@@ -12,7 +12,7 @@ module TheftsHelper
   end
 
   def get_troll
-    image_tag "troll.png", style: 'height:455px; width:640px;', class: "mr-16 border-2 border-white"
+    image_tag "troll.png", style: 'height:455px; width:640px;', class: "lg:mr-16 border-2 border-white"
   end
 
   def get_table
