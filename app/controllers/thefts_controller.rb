@@ -2,7 +2,7 @@ class TheftsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def create
-    params[:theft][:time_of_next] = (rand(10...35) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(8...30) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
@@ -19,19 +19,22 @@ class TheftsController < ApplicationController
   end
 
   def index
-    @first_number = rand(1..40)
-    @second_number = rand(1..40)
+    @first_number = rand(-50..50)
+    @second_number = rand(1..50)
+    @puzzle = get_puzzle(@first_number, @second_number)
+    @formula = @puzzle[0]
+    @result = @puzzle[1]
     @cake_id = 1
     @cake_cal = 100
     @time_left = 0
     @theft = Theft.new
     @thefts = Theft.all.order(created_at: :desc)
-    @last_50_thefts = Theft.all.order(created_at: :desc).limit(50)
-    @top_50_fattest = Theft.group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(50)
+    @last_thefts = Theft.all.order(created_at: :desc).limit(10)
+    @top_fattest = Theft.where(created_at: (Time.now.beginning_of_month..Time.now.end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(10)
+    @top_fattest_march = Theft.where(created_at: (Time.new(2020, 3).beginning_of_month..Time.new(2020, 3).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @users = User.all
     @time_now = Time.now.to_i
     @exact_time = Time.now.to_f
-    @time_of_next = (rand(1...2) * 60) + @time_now
     unless @thefts.empty?
       @last_thief = @thefts.first.user.username
       @cake_id = Theft.last.next_cake_id
@@ -78,6 +81,18 @@ class TheftsController < ApplicationController
     when 98..99 then 23 #2
     when 100 then 24 # 1
     end
+  end
+
+  def get_puzzle(a,b)
+    r = rand(0..1)
+    if r == 0
+      formula = a.to_s + " + " + b.to_s
+      result = a + b
+    else
+      formula = a.to_s + " - " + b.to_s
+      result = a - b
+    end
+    return formula, result
   end
 
   def answer_correct?

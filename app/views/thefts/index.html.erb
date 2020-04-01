@@ -18,10 +18,8 @@
             <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto;'%>
           <% end %>
         </div>
-
       </div>
     </div>
-
     <div class="mx-auto max-w-sm bg-color7 p-4 border-2 border-white">
       <p class="mb-2">Troll baked a <%= @cake_name %> (<%= @cake_cal %> kcal).</p>
       <p class="mb-2">He's about to eat it.</p>
@@ -35,26 +33,24 @@
     <div class="flex flex-wrap justify-center items-end mb-8">
       <%= get_troll %>
       <div class="relative mt-64 pt-0 lg:mt-0 lg:pt-0">
-      <div>
-        <%= get_table %>
-      </div>
-      <div class="absolute bottom-0 text-center" style="margin-bottom: 220px; margin-left: 10px;">
-        <% if flash.key?("good_news") || flash.key?("bad_news") %>
-          <% flash.each do |key, value| %>
-            <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6 text-center" %>
+        <div>
+          <%= get_table %>
+        </div>
+        <div class="absolute bottom-0 text-center" style="margin-bottom: 220px; margin-left: 10px;">
+          <% if flash.key?("good_news") || flash.key?("bad_news") %>
+            <% flash.each do |key, value| %>
+              <%= content_tag :div, value, class: "flash #{key} w-auto inline-block mt-6 text-center" %>
+            <% end %>
           <% end %>
-        <% end %>
-        <div class="bg-color7 p-4 border-2 border-white">
-          <p class="mb-2"><strong>There is no cookie.</strong></p>
-          <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
-          <p>Next one will be ready in:</p>
-          <timer :time_left="<%= @time_left.to_json %>"></timer>
+          <div class="bg-color7 p-4 border-2 border-white">
+            <p class="mb-2"><strong>There is no cookie.</strong></p>
+            <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+            <p>Next one will be ready in:</p>
+            <timer :time_left="<%= @time_left.to_json %>"></timer>
+          </div>
         </div>
       </div>
-      </div>
-
     </div>
-
     <div class="mx-auto max-w-sm bg-color7 p-4 border-2 border-white">
       <p class="mb-2">Troll is hungry and sad.</p>
       <p class="mb-2">He would appreciate a <%= active_link_to "cup of coffee", "https://www.buymeacoffee.com/nomideusz", target: :_blank %>.</p>
@@ -62,55 +58,80 @@
         <p class="mt-2"><%= active_link_to 'Log in', new_user_session_path %> or <%= active_link_to "Create Account", new_user_registration_path %> to play!</p>
       <% end %>
     </div>
-
   <% end %>
 </div>
 <div class="flex flex-wrap justify-center mt-8">
-<table class="table-auto mr-16">
-  <caption><strong>Last 50 gluttons</strong></caption>
-  <thead>
-    <th>Glutton</th>
-    <th>Cake</th>
-    <th>Kcal</th>
-    <th>When</th>
-  </thead>
-  <tbody>
-    <% @last_50_thefts.each do |theft| %>
-      <tr>
-        <td>
-          <% if theft.user %>
-            <%= theft.user.username %>
+  <table class="table-auto mr-0 md:mr-16 mb-8 md:mb-0">
+    <caption><strong>Last 10 gluttons</strong></caption>
+    <thead>
+      <th>Glutton</th>
+      <th>Cake</th>
+      <th>Kcal</th>
+      <th>When</th>
+    </thead>
+    <tbody>
+      <% @last_thefts.each do |theft| %>
+        <tr>
+          <td>
+            <% if theft.user %>
+              <%= theft.user.username %>
+            <% end %>
+          </td>
+          <% if theft.cake_id && theft.cake_id > 0 && theft.cake_id <= 24 %>
+            <td><%= get_cake_name(theft.cake_id) %></td>
           <% end %>
-        </td>
-        <% if theft.cake_id && theft.cake_id > 0 && theft.cake_id <= 24 %>
-          <td><%= get_cake_name(theft.cake_id) %></td>
+          <td><%= theft.cake_cal %></td>
+          <td><%= distance_of_time_in_words(Time.now, theft.created_at) + " ago" %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div>
+    <table class="mb-8">
+      <caption><strong>Top 10 Fattest in April</strong></caption>
+      <thead>
+        <th>No.</th>
+        <th>Glutton</th>
+        <th>Kcal</th>
+      </thead>
+      <tbody>
+        <% i = 1 %>
+        <% @top_fattest.each do |key, value| %>
+          <tr>
+            <td><%= i %></td>
+            <td>
+              <% if User.exists?(key) %>
+                <%= User.find(key).username %>
+              <% end %>
+            </td>
+            <td><%= value %></td>
+          </tr>
+          <% i += 1 %>
         <% end %>
-        <td><%= theft.cake_cal %></td>
-        <td><%= distance_of_time_in_words(Time.now, theft.created_at) + " ago" %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-
-<table>
-  <caption><strong>Top 50 The Fattest</strong></caption>
-  <thead>
-    <th>Glutton</th>
-    <th>Kcal</th>
-  </thead>
-  <tbody>
-    <% @top_50_fattest.each do |key, value| %>
-      <tr>
-        <td>
-          <% if User.exists?(key) %>
-            <%= User.find(key).username %>
-          <% end %>
-        </td>
-          <td><%= value %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
+      </tbody>
+    </table>
+    <table>
+      <caption><strong>Most greedy in March</strong></caption>
+      <thead>
+        <th>No.</th>
+        <th>Glutton</th>
+        <th>Kcal</th>
+      </thead>
+      <tbody>
+        <% i = 1 %>
+        <% @top_fattest_march.each do |key, value| %>
+          <tr>
+            <td><%= i %></td>
+            <td>
+              <% if User.exists?(key) %>
+                <%= User.find(key).username %>
+              <% end %>
+            </td>
+            <td><%= value %></td>
+          </tr>
+          <% i += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -25,11 +25,11 @@ h3 {
 }
 
 a {
-  @apply text-color2 tracking-wide;
+  @apply text-color4 tracking-wide;
 }
 
 a:hover, a:focus {
-  @apply text-color1;
+  @apply text-color2;
 }
 
 a.active, a:active {
@@ -53,7 +53,7 @@ a.active, a:active {
 }
 
 .btn {
-  @apply shadow bg-color2 text-color4 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
+  @apply shadow bg-color5 text-color3 text-xs font-bold py-2 px-4 rounded cursor-pointer tracking-wider;
 }
 
 .btn:hover {

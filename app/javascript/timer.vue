@@ -27,11 +27,11 @@ export default {
       let minutes = Math.floor(this.time_left / 60) - (hours * 60);
       let seconds = this.time_left % 60;
       this.formatted = minutes.toString().padStart(2, '0') + ':' + seconds.toString().padStart(2, '0');
-      if (this.time_left < 0) {
+      if (this.time_left < 1) {
         location.reload();
-        this.time_left = "";
-        this.formatted = "";
-       
+        this.time_left = 0;
+        this.formatted = "00:00";
+
       }
     }
   }

@@ -6,9 +6,9 @@
   <%= f.hidden_field :next_cake_cal, value: @next_cake_cal || 100 %>
   <%= f.hidden_field :exact_time_of_previous, value: @exact_time_of_previous %>
   <%= f.hidden_field :exact_time, value: @exact_time %>
-  <%= f.hidden_field :puzzle_result, value: @first_number + @second_number %>
+  <%= f.hidden_field :puzzle_result, value: @result %>
   <div style="margin-bottom: 200px; margin-left: -20px;" class="absolute bottom-0 left-0 bg-color7 p-4 border-2 border-white">
-    <strong><%= "#{@first_number} + #{@second_number}" %></strong>
+    <strong><%= @formula %></strong>
     <%= f.input :answer, label: "what's the result?", input_html: {class: 'p-1 mt-2 text-center border border-color6'} %>
   </div>
   <%= image_submit_tag "#{@cake_id}.png", style: 'height:auto; width:auto;' %>
