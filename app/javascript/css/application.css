@@ -134,6 +134,12 @@ table {
   @apply table-auto bg-color7 border-2 border-white text-xs;
 }
 
+@screen md {
+  table {
+    @apply text-base;
+  }
+}
+
 th {
   @apply px-2 py-2;
 }
