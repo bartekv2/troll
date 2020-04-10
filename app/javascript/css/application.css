@@ -5,7 +5,13 @@
 body {
   font-family: 'Signika Negative', sans-serif;
   background-image: url('/assets/bg.png');
-  @apply text-color3 p-4 bg-repeat;
+  @apply text-color3 p-4 pt-2 bg-repeat;
+}
+
+@screen md {
+  body {
+    @apply pt-4;
+  }
 }
 
 h1 a, h1 a.active {
@@ -125,13 +131,19 @@ input:checked + svg {
 }
 
 table {
-  @apply table-auto bg-color7 border-2 border-white;
+  @apply table-auto bg-color7 border-2 border-white text-xs;
 }
 
 th {
-  @apply px-4 py-2;
+  @apply px-2 py-2;
 }
 
 td {
-  @apply border px-4 py-2;
+  @apply border px-2 py-2;
+}
+
+@screen md {
+  th, td {
+    @apply px-4;
+  }
 }

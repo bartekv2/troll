@@ -1,8 +1,13 @@
 <div class="text-center">
   <% if is_cookie? %>
-    <div class="flex flex-wrap justify-center items-end mb-8">
-      <%= get_troll %>
-      <div class="relative mt-64 pt-12 lg:mt-0 lg:pt-0">
+    <div class="md:flex md:flex-wrap justify-center items-end mb-8">
+      <div class="hidden md:block">
+        <%= get_troll %>
+      </div>
+      <div class="inline-block md:hidden w-full">
+        <%= get_troll_small %>
+      </div>
+      <div class="inline-block relative mt-64 pt-12 lg:mt-0 lg:pt-0">
         <div>
           <%= get_table %>
         </div>
@@ -30,8 +35,13 @@
       <% end %>
     </div>
   <% else %>
-    <div class="flex flex-wrap justify-center items-end mb-8">
-      <%= get_troll %>
+    <div class="md:flex md:flex-wrap justify-center items-end mb-8">
+      <div class="hidden md:block">
+        <%= get_troll %>
+      </div>
+      <div class="inline-block md:hidden w-full">
+        <%= get_troll_small %>
+      </div>
       <div class="relative mt-64 pt-0 lg:mt-0 lg:pt-0">
         <div>
           <%= get_table %>
