@@ -7,7 +7,7 @@ class TheftsController < ApplicationController
     @theft = Theft.new(theft_params)
     if answer_correct?
       if @theft.save
-        flash[:good_news] = "Congratulations! You've trolled the troll!"
+        flash[:good_news] = "You've trolled the troll!"
       else
         flash[:bad_news] = "Unfortunately somebody was faster."
       end
