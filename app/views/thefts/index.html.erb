@@ -54,7 +54,14 @@
           <% end %>
           <div class="bg-color7 p-4 border-2 border-white">
             <p class="mb-2"><strong>There is no cookie.</strong></p>
-            <p class="mb-2">It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+            <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
+            <attempts>
+              <ul class="text-xs mb-2">
+                  <% @attempts.each do |attempt| %>
+                    <li><%= attempt.user.username %> +<%= (attempt.created_at - Theft.last.created_at).round(2) %>s</li>
+                  <% end %>
+              </ul>
+            </attempts>
             <p>Next one will be ready in:</p>
             <timer :time_left="<%= @time_left.to_json %>"></timer>
           </div>

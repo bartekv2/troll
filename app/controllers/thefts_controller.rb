@@ -2,14 +2,16 @@ class TheftsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def create
-    params[:theft][:time_of_next] = (rand(8...30) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
       if @theft.save
+        Attempt.delete_all
         flash[:good_news] = "You've trolled the troll!"
       else
-        flash[:bad_news] = "Unfortunately somebody was faster."
+        Attempt.create(user_id: current_user.id)
+        flash[:bad_news] = "You're too slow!"
       end
     else
       flash[:bad_news] = "Wrong answer."
@@ -19,6 +21,7 @@ class TheftsController < ApplicationController
   end
 
   def index
+    @attempts = Attempt.order(created_at: :asc)
     @first_number = rand(-50..50)
     @second_number = rand(1..50)
     @puzzle = get_puzzle(@first_number, @second_number)
