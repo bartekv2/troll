@@ -8,7 +8,19 @@ class User < ApplicationRecord
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, :multiline => true
   validates :username, presence: true, uniqueness: true
 
+  after_create :notify_pusher
+
   attr_writer :login
+
+  def notify_pusher
+    Pusher.trigger('activity', 'login', self.as_json)
+  end
+
+  def as_json(options={})
+    super(
+      only: [:id, :email, :username]
+    )
+  end
 
   def login
     @login || self.username || self.email

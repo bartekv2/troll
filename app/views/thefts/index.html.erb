@@ -20,6 +20,9 @@
             <% end %>
             <%= render partial: "form" %>
           <% else %>
+            <div style="margin-bottom: 200px; margin-left: -20px;" class="absolute bottom-0 left-0 bg-color7 p-4 border-2 border-white">
+              <%= log_in_to_play %>
+            </div>
             <%= image_tag "#{@cake_id}.png", style: 'height:auto; width:auto;'%>
           <% end %>
         </div>
@@ -30,9 +33,6 @@
       <p class="mb-2">He's about to eat it.</p>
       <p class="mb-2">He's happy.</p>
       <p class="mb-2">Solve the puzzle and steal his food.</p>
-      <% if !user_signed_in? %>
-        <%= log_in_to_play %>
-      <% end %>
     </div>
   <% else %>
     <div class="md:flex md:flex-wrap justify-center items-end mb-8">
@@ -55,13 +55,11 @@
           <div class="bg-color7 p-4 border-2 border-white">
             <p class="mb-2"><strong>There is no cookie.</strong></p>
             <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
-            <attempts>
-              <ul class="text-xs mb-2">
-                  <% @attempts.each do |attempt| %>
-                    <li><%= attempt.user.username %> +<%= (attempt.created_at - Theft.last.created_at).round(2) %>s</li>
-                  <% end %>
+              <ul id="attempts" class="text-xs mb-2">
+                <% @attempts.each do |attempt| %>
+                  <li><%= attempt.user.username %> +<%= (attempt.created_at - Theft.last.created_at).round(2) %>s</li>
+                <% end %>
               </ul>
-            </attempts>
             <p>Next one will be ready in:</p>
             <timer :time_left="<%= @time_left.to_json %>"></timer>
           </div>
