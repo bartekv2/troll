@@ -1,6 +1,10 @@
 class TheftsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
+  def new
+    @theft = Theft.new
+  end
+
   def create
     params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
 
@@ -10,13 +14,17 @@ class TheftsController < ApplicationController
         Attempt.delete_all
         flash[:good_news] = "You've trolled the troll!"
       else
-        Attempt.create(user_id: current_user.id)
+        @attempt = Attempt.create(user_id: current_user.id)
+        ActionCable.server.broadcast 'theft_channel',
+                                          content: get_delays(@attempt)
+
+
         flash[:bad_news] = "You're too slow!"
       end
     else
       flash[:bad_news] = "Wrong answer."
     end
-    redirect_to thefts_path
+    redirect_to root_path
 
   end
 
@@ -100,6 +108,12 @@ class TheftsController < ApplicationController
 
   def answer_correct?
     params[:theft][:answer] == params[:theft][:puzzle_result]
+  end
+
+  helper_method :get_delays
+
+  def get_delays(attempt)
+     attempt.user.username + " +" + (attempt.created_at - Theft.last.created_at).round(2).to_s + 's'
   end
 
 end

@@ -16,7 +16,6 @@ export default {
   },
   data() {
     return {
-      time_left: this.time_left,
       formatted: Math.floor(this.time_left / 60).toString().padStart(2, '0') + ':' + (this.time_left % 60).toString().padStart(2, '0')
     }
   },

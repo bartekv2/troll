@@ -57,7 +57,7 @@
             <p>It was stolen by glutton <strong><%= @last_thief %></strong>.</p>
               <ul id="attempts" class="text-xs mb-2">
                 <% @attempts.each do |attempt| %>
-                  <li><%= attempt.user.username %> +<%= (attempt.created_at - Theft.last.created_at).round(2) %>s</li>
+                  <li><%= get_delays(attempt) %></li>
                 <% end %>
               </ul>
             <p>Next one will be ready in:</p>
