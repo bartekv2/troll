@@ -11,6 +11,6 @@ consumer.subscriptions.create("TheftChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    $('#attempts').append('<li>' + data.content + '<li>')
+    $('#attempts').append('<li class="fade-in">' + data.content + '<li>')
   }
 });
