@@ -2,7 +2,7 @@ class TheftsController < ApplicationController
   before_action :authenticate_user!, only: [:create]
 
   def create
-    params[:theft][:time_of_next] = (rand(2...3) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
