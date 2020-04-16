@@ -38,6 +38,7 @@ gem 'capistrano-passenger', '~> 0.2.0'
 gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.6'
 gem 'jquery-rails'
 gem 'redis', '~> 4.1', '>= 4.1.3'
+gem 'humanize'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

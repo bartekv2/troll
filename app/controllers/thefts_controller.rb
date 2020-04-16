@@ -6,7 +6,7 @@ class TheftsController < ApplicationController
   end
 
   def create
-    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(1...2) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
@@ -31,7 +31,7 @@ class TheftsController < ApplicationController
   def index
     @attempts = Attempt.order(created_at: :asc)
     @first_number = rand(-50..50)
-    @second_number = rand(1..50)
+    @second_number = rand(-50..50)
     @puzzle = get_puzzle(@first_number, @second_number)
     @formula = @puzzle[0]
     @result = @puzzle[1]
@@ -97,10 +97,10 @@ class TheftsController < ApplicationController
   def get_puzzle(a,b)
     r = rand(0..1)
     if r == 0
-      formula = a.to_s + " + " + b.to_s
+      formula = a.humanize + " plus " + b.humanize
       result = a + b
     else
-      formula = a.to_s + " - " + b.to_s
+      formula = a.humanize + " minus " + b.humanize
       result = a - b
     end
     return formula, result
