@@ -1,5 +1,18 @@
 <div class="text-center">
   <% if is_cookie? %>
+  <script>
+    setInterval(changeTitle, 1000);
+    let text = ['Hey!', 'NEW COOKIE!']
+    let count = 0;
+    function changeTitle() {
+      let x = document.title = text[count];
+      count++;
+      if (count >= text.length) {
+        count = 0;
+      }
+    }
+
+  </script>
     <div class="md:flex md:flex-wrap justify-center items-end mb-8">
       <div class="hidden md:block">
         <%= get_troll %>

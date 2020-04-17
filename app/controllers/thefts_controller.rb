@@ -6,7 +6,7 @@ class TheftsController < ApplicationController
   end
 
   def create
-    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(1...2) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
