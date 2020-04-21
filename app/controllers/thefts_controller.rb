@@ -6,7 +6,7 @@ class TheftsController < ApplicationController
   end
 
   def create
-    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(1...2) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
@@ -43,6 +43,7 @@ class TheftsController < ApplicationController
     @last_thefts = Theft.all.order(created_at: :desc).limit(10)
     @top_fattest = Theft.where(created_at: (Time.now.beginning_of_month..Time.now.end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(10)
     @top_fattest_march = Theft.where(created_at: (Time.new(2020, 3).beginning_of_month..Time.new(2020, 3).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
+    @most_greedy_yesterday = Theft.where(created_at: ((Time.now).beginning_of_day..(Time.now).end_of_day)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @users = User.all
     @time_now = Time.now.to_i
     @exact_time = Time.now.to_f
@@ -95,13 +96,30 @@ class TheftsController < ApplicationController
   end
 
   def get_puzzle(a,b)
-    r = rand(0..1)
+    r = rand(0..3)
     if r == 0
       formula = a.humanize + " plus " + b.humanize
       result = a + b
-    else
+    elsif r == 1
       formula = a.humanize + " minus " + b.humanize
       result = a - b
+    elsif r == 2
+      multiplier = rand(2..4)
+      formula = a.humanize + " times " + multiplier.humanize
+      result = a * multiplier
+    elsif r == 3 && (a % 2 == 0)
+      formula = a.humanize + " divided by two"
+      result = a / 2
+    elsif r == 3 && (a % 3 == 0)
+      formula = a.humanize + " divided by three"
+      result = a / 3
+    elsif r == 3 && (a % 7 == 0)
+      formula = a.humanize + " divided by seven"
+      result = a / 7
+    else
+      multiplier = rand(1..999)
+      formula = multiplier.humanize + " million"
+      result = multiplier * 1000000
     end
     return formula, result
   end

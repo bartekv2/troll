@@ -114,6 +114,7 @@
       <% end %>
     </tbody>
   </table>
+
   <div>
     <table class="mb-8">
       <caption><strong>Top 10 Fattest in April</strong></caption>
@@ -125,6 +126,29 @@
       <tbody>
         <% i = 1 %>
         <% @top_fattest.each do |key, value| %>
+          <tr>
+            <td><%= i %></td>
+            <td>
+              <% if User.exists?(key) %>
+                <%= User.find(key).username %>
+              <% end %>
+            </td>
+            <td><%= value %></td>
+          </tr>
+          <% i += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+    <table class="mb-8">
+      <caption><strong>Most greedy yesterday</strong></caption>
+      <thead>
+        <th>No.</th>
+        <th>Glutton</th>
+        <th>Kcal</th>
+      </thead>
+      <tbody>
+        <% i = 1 %>
+        <% @most_greedy_yesterday.each do |key, value| %>
           <tr>
             <td><%= i %></td>
             <td>
