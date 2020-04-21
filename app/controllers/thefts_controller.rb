@@ -6,7 +6,7 @@ class TheftsController < ApplicationController
   end
 
   def create
-    params[:theft][:time_of_next] = (rand(1...2) * 60) + Time.now.to_i
+    params[:theft][:time_of_next] = (rand(8...35) * 60) + Time.now.to_i
 
     @theft = Theft.new(theft_params)
     if answer_correct?
@@ -43,7 +43,7 @@ class TheftsController < ApplicationController
     @last_thefts = Theft.all.order(created_at: :desc).limit(10)
     @top_fattest = Theft.where(created_at: (Time.now.beginning_of_month..Time.now.end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(10)
     @top_fattest_march = Theft.where(created_at: (Time.new(2020, 3).beginning_of_month..Time.new(2020, 3).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
-    @most_greedy_yesterday = Theft.where(created_at: ((Time.now).beginning_of_day..(Time.now).end_of_day)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
+    @most_greedy_yesterday = Theft.where(created_at: ((Date.yesterday).beginning_of_day..(Date.yesterday).end_of_day)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @users = User.all
     @time_now = Time.now.to_i
     @exact_time = Time.now.to_f
