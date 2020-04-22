@@ -13,7 +13,7 @@ class OmniauthController < ApplicationController
 
   def google_oauth2
     @user = User.create_from_provider_data(request.env['omniauth.auth'])
-    if @user
+    if @user.persisted?
       flash[:notice] = "Signed in successfully."
       sign_in_and_redirect @user
     else
