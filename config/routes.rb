@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :thefts
-  devise_for :users
+  devise_for :users, controllers: {omniauth_callbacks: 'omniauth'}
   root 'thefts#index'
   get 'about' => 'home#about'
   mount ActionCable.server => "/cable"
