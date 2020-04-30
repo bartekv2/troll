@@ -44,7 +44,6 @@ class TheftsController < ApplicationController
     @top_fattest = Theft.where(created_at: (Time.now.beginning_of_month..Time.now.end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(10)
     @top_fattest_march = Theft.where(created_at: (Time.new(2020, 3).beginning_of_month..Time.new(2020, 3).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @top_fattest_april = Theft.where(created_at: (Time.new(2020, 4).beginning_of_month..Time.new(2020, 4).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
-
     @most_greedy_yesterday = Theft.where(created_at: ((Date.yesterday).beginning_of_day..(Date.yesterday).end_of_day)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @users = User.all
     @time_now = Time.now.to_i
@@ -106,7 +105,7 @@ class TheftsController < ApplicationController
       formula = a.humanize + " minus " + b.humanize
       result = a - b
     elsif r == 2
-      multiplier = rand(2..4)
+      multiplier = rand(2..6)
       formula = a.humanize + " times " + multiplier.humanize
       result = a * multiplier
     elsif r == 3 && (a % 2 == 0)
@@ -118,6 +117,9 @@ class TheftsController < ApplicationController
     elsif r == 3 && (a % 7 == 0)
       formula = a.humanize + " divided by seven"
       result = a / 7
+    elsif r == 3 && (a % 13 == 0)
+      formula = a.humanize + " divided by thirteen"
+      result = a / 13
     else
       multiplier = rand(1..999)
       formula = multiplier.humanize + " million"
