@@ -163,6 +163,29 @@
       </tbody>
     </table>
     <table>
+      <caption><strong>Most greedy in April</strong></caption>
+      <thead>
+        <th>No.</th>
+        <th>Glutton</th>
+        <th>Kcal</th>
+      </thead>
+      <tbody>
+        <% i = 1 %>
+        <% @top_fattest_april.each do |key, value| %>
+          <tr>
+            <td><%= i %></td>
+            <td>
+              <% if User.exists?(key) %>
+                <%= User.find(key).username %>
+              <% end %>
+            </td>
+            <td><%= value %></td>
+          </tr>
+          <% i += 1 %>
+        <% end %>
+      </tbody>
+    </table>
+    <table>
       <caption><strong>Most greedy in March</strong></caption>
       <thead>
         <th>No.</th>

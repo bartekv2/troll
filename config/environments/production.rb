@@ -67,18 +67,18 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => 'trollthetroll.net' }
-config.action_mailer.delivery_method = :smtp
-config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = false
-config.action_mailer.default :charset => "utf-8"
-config.action_mailer.smtp_settings = {
-address:              'smtp.sendgrid.net',
-port:                 587,
-domain:               'trollthetroll.net',
-user_name:            'apikey',
-password:             ENV['SENDGRID_API_KEY'],
-authentication:       'plain',
-enable_starttls_auto: true  }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.default :charset => "utf-8"
+  config.action_mailer.smtp_settings = {
+  address:              'smtp.sendgrid.net',
+  port:                 587,
+  domain:               'trollthetroll.net',
+  user_name:            'apikey',
+  password:             ENV['SENDGRID_API_KEY'],
+  authentication:       'plain',
+  enable_starttls_auto: true  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
