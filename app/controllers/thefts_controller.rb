@@ -44,6 +44,7 @@ class TheftsController < ApplicationController
     @top_fattest = Theft.where(created_at: (Time.now.beginning_of_month..Time.now.end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(10)
     @top_fattest_march = Theft.where(created_at: (Time.new(2020, 3).beginning_of_month..Time.new(2020, 3).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @top_fattest_april = Theft.where(created_at: (Time.new(2020, 4).beginning_of_month..Time.new(2020, 4).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
+    @top_fattest_may = Theft.where(created_at: (Time.new(2020, 5).beginning_of_month..Time.new(2020, 5).end_of_month)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @most_greedy_yesterday = Theft.where(created_at: ((Date.yesterday).beginning_of_day..(Date.yesterday).end_of_day)).group(:user_id).sum(:cake_cal).sort_by{|k, v| v}.reverse.take(3)
     @users = User.all
     @time_now = Time.now.to_i
